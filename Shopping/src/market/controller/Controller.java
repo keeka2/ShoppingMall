@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import market.action.Action;
 import market.action.HomeAction;
+import market.action.IndexAction;
+import market.action.ListAction;
 import market.action.LoginAction;
 import market.action.RegisterAction;
 import market.action.SellAction;
+import market.action.ViewAction;
 
 
 /**
@@ -37,15 +40,23 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String type = request.getParameter("type");
+		System.out.println("type "+type);
 		Action action = null;
-		if(type==null || type.equals("home")) {
+		if(type==null || type.equals("index")) {
+			action = new IndexAction();
+		}else if(type.equals("home")) {
 			action = new HomeAction();
-		}else if(type.equals("register")) {
+		}
+		else if(type.equals("register")) {
 			action = new RegisterAction();
 		}else if(type.equals("login")) {
 			action = new LoginAction();
 		}else if(type.equals("sell")) {
 			action = new SellAction();
+		}else if(type.equals("list")) {
+			action = new ListAction(request.getParameter("category"));
+		}else if(type.equals("view")) {
+			action = new ViewAction();
 		}
 		
 		String viewPath = action.execute(request,response);

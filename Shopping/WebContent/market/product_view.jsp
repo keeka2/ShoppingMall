@@ -1,13 +1,8 @@
 <%@page import="mybatis.vo.ProductVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- useBean 속성 바뀌면 안됨 (id바꾸면 새로 다 받아와짐) --%>
-<jsp:useBean id="sb" class="shop.bean.ShopBean" scope="session"/>
-<jsp:setProperty property="p_num" name="sb" param="prod_num"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	ProductVO pvo = sb.getProduct();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,37 +44,37 @@
 			<tbody>
 			    <tr>
 			        <td>제품Category</td>
-			        <td><%=pvo.getCategory() %></td>
+			        <td>${pvo.p_category }</td>
 			    </tr>
 			    <tr>
 			        <td>제품번호</td>
-			        <td><%=pvo.getP_num() %></td>
+			        <td>${pvo.p_key }</td>
 			    </tr>
 			    <tr>
 			        <td>제품이름</td>
-			        <td><%=pvo.getP_name() %></td>
+			        <td>${pvo.p_name }</td>
 			    </tr>
-			    <tr>
-			        <td>제품 판매사</td>
-			        <td><%=pvo.getP_company() %></td>
-			    </tr>
+
 			    <tr>
 			        <td>제품가격</td>
-			        <td>(할인가 :  <%=pvo.getP_saleprice() %>)</td>
+			        <td>${pvo.p_price }</td>
 			    </tr>
 			    <tr>
-			        <td colspan="2">제품설명</td>
+			        <td>제품설명</td>
+			        <td>${pvo.p_content }</td>
+			    </tr>
+
+			    <tr>
+			        <td colspan="2" align="center"><img src ="${pvo.p_image }"></td>
 			    </tr>
 			    <tr>
-			        <td colspan="2" align="center"><img src ="images/<%=pvo.getP_image_l() %>"></td>
+			        <td colspan="2"></td>
 			    </tr>
-			    <tr>
-			        <td colspan="2"><%=pvo.getP_content() %></td>
-			    </tr>
+
 			    <tr>
 			        <td colspan="2" align="center">
 			            <input type="button" value="장바구니에 담기" 
-			            onclick="javascript:location.href='addProduct.jsp?p_num=<%=pvo.getP_num()%>'"/>
+			            onclick="javascript:location.href='addProduct.jsp?p_num='"/>
 			            <input type="button" value="장바구니 보기" 
 			            onclick="javascript:location.href='cartList.jsp'"/>
 			        </td>

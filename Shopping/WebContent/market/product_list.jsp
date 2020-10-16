@@ -1,6 +1,8 @@
-<%@page import="mybatis.vo.ProductVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,26 +27,9 @@
 </head>
 <body>
 <jsp:include page="nav.jsp"/>
-<%
-	//요청시 한글처리
-	request.setCharacterEncoding("utf-8");
-%>	
-	<jsp:useBean id="sb" class="shop.bean.ShopBean" scope="session"/>
-	<jsp:setProperty property="*" name="sb"/><%-- 현재 페이지로 넘어올 때 전달되는 파라미터가
-				category하나다. 이것이 sb 즉, ShopBean의 category라는 멤버변수에 자동으로 저장된다. --%>
-<%
-	//MyBatis환경을 이용하여 제품진열대를 채운다.
-	sb.searchProduct();
 
-	// 채워진 진열대를 현재 페이지에서 표현하기 위해 가져온다.
-	ProductVO[] list = sb.getP_list();
-	if(list!=null){
-		for(ProductVO vo : list){
-			System.out.println(vo.getP_name());
-		}
-	}
-%>
-	<table align="center" width="600" border="1" 
+
+<table align="center" width="600" border="1" 
  style="border-collapse:collapse;font-size:8pt" bordercolor="navy"  
  cellpadding="4" cellspacing="0">
 
@@ -57,36 +42,42 @@
 	        <th width="25%">비고</th>
 	    </tr>
 	</thead>
-	 <%
-	 if(list!=null){
-		 for(ProductVO vo : list){
- 	%>
+	<tfoot>
+		<tr>
+			<td colspan="5">
+				${page_html }
+			</td>
+		</tr>
+	</tfoot>
 	<tbody>
-	    <tr align="center">
-	        <td><%=vo.getNum() %></td>
-	        <td><img src="images/<%=vo.getP_image_s() %>" width="100" height="95"></td>
-	        <td>
-	            <a href="product_content.jsp?prod_num=<%=vo.getP_num() %>">
-	            	<%=vo.getP_name() %>    
-	            	<%-- db왕래 줄여야 속도 빨라짐 --%>
-	            </a>
-	        </td>
-	        <td>
-	            할인가 : <%=vo.getP_saleprice() %>원<br>
-	            <font color="red">()</font>
-	        </td>
-	        <td>
-	            시중 가격 : <%=vo.getP_price() %>원
-	        </td>
-	    </tr>
+	<c:if test="${p_list ne null }">
+		<c:forEach var="vo" items="${requestScope.p_list }">
+			
+			    <tr align="center">
+			        <td>${vo.p_key }</td>
+			        <td><img src=${vo.p_thumbnail } width="100" height="95"></td>
+			        <td>
+			            <a href="Controller?type=view&p_key=${vo.p_key }">
+			            	${vo.p_name }
+			            </a>
+			        </td>
+			        <td>
+			            ${vo.p_price }<br>
+			        </td>
+			        <td>
+			            ${vo.p_quant }
+			        </td>
+			    </tr>
+		    
+    	</c:forEach>
+    </c:if>
     </tbody>
-    <%
-		 }
-		 }else{ %>
-    <tr>
-    	<td colspan="5" height="60" align="center">등록된 제품이 없습니다</td>
-    </tr>
-    <%} %>
+	<c:if test="${p_list eq null }">
+	    <tr>
+	    	<td colspan="5" height="60" align="center">등록된 제품이 없습니다</td>
+	    </tr>
+    </c:if>
+
    
 </table>
 </body>

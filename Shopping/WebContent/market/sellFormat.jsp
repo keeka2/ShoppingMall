@@ -58,6 +58,8 @@
 				return;//수행 중단
 			}
 		}
+
+//		document.forms[0].action = "test.jsp";
 		document.forms[0].submit();
 	}
 </script>
@@ -67,37 +69,45 @@
 	<form action="Controller?type=sell" method="post" 
 	encType="multipart/form-data">
 		<table summary="게시판 글쓰기">
-			<caption>제품 올리기</caption>
+			<caption>게시판 글쓰기</caption>
 			<tbody>
 				<tr>
-					<th>제품명:</th>
+					<th>제품 이름:</th>
 					<td><input type="text" name="p_name" size="45"/></td>
 				</tr>
 				<tr>
+					<th>상세 정보:</th>
+					<td><textarea name="p_content" cols="50" rows="8"></textarea></td>
+				</tr>
+				<tr>
+					<th>가격:</th>
+					<td><input type="number" name="p_price" size="45"/></td>
+				</tr>
+				<tr>
 					<th>카테고리:</th>
-					<td><input type="text" name="p_category" size="12"/></td>
-				</tr>
-				<tr>
-					<th>설명:</th>
-					<td><textarea name="p_content" cols="50" 
-							rows="8"></textarea></td>
-				</tr>
-				<tr>
-					<th>판매 가격:</th>
-					<td><input type="password" name="p_price" size="12"/></td>
+					<td>
+						<select name="p_category">
+						    <option value="computer">컴퓨터</option>
+						    <option value="electronic">가전 제품</option>
+						    <option value="sports">스포츠</option>
+						    <option value="cloth">의류</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>수량:</th>
-					<td><input type="password" name="p_quant" size="12"/></td>
+					<td><input type="number" name="p_quant" size="45"/></td>
 				</tr>
 				<tr>
-					<th>썸네일 이미지:</th>
-					<td><input type="file" name="thumbnail"/></td>
+					<th>썸네일:</th>
+					<td><input type="file" name="p_thumbnail"/></td>
 				</tr>
+
 				<tr>
-					<th>상세보기 이미지:</th>
-					<td><input type="file" name="bigImg"/></td>
+					<th>상세 사진:</th>
+					<td><input type="file" name="p_image"/></td>
 				</tr>
+
 				<tr>
 					<td colspan="2">
 						<input type="button" value="보내기"

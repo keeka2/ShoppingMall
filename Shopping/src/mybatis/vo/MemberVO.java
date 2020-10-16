@@ -1,7 +1,15 @@
 package mybatis.vo;
 
 public class MemberVO {
-	private String id, name, addr, phone, email;
+	private String user_key, id, name, addr, phone, email;
+
+	public String getUser_key() {
+		return user_key;
+	}
+
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 
 	public String getId() {
 		return id;

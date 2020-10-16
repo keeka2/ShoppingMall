@@ -5,9 +5,33 @@
 <mapper namespace="shop">
   
   <!-- 카테고리별로 목록을 반화하는 기능 -->
-  <select id="list" parameterType="String" resultType="mybatis.vo.ProductVO">
-  	SELECT * FROM shop_t
-  	WHERE category = #{no}
+  <select id="list" parameterType="java.util.Map" resultType="mybatis.vo.ProductVO">
+  	SELECT * FROM(
+			SELECT rownum r_num, a.* FROM (
+				SELECT * FROM product 
+				WHERE p_category=#{p_category} 
+				ORDER BY p_key DESC) a
+			) WHERE r_num BETWEEN #{begin} AND #{end}
   </select>
   
+   <select id="list_all" parameterType="java.util.Map" resultType="mybatis.vo.ProductVO">
+  	 SELECT * FROM(
+			SELECT rownum r_num, a.* FROM (
+				SELECT * FROM product 
+				ORDER BY p_key DESC) a
+			) WHERE r_num BETWEEN #{begin} AND #{end}
+  </select>
+  
+  <insert id="add" parameterType="java.util.Map">
+  	INSERT INTO product
+  	VALUES(product_SEQ.NEXTVAL,#{p_name},UTL_RAW.CAST_TO_RAW(#{p_content}),#{p_price},#{p_seller},#{p_category},#{p_quant},#{p_thumbnail},#{p_image},sysdate)
+  </insert>
+  
+  <select id="getcTotal" parameterType="java.util.Map" resultType="String">
+  	SELECT COUNT(*) FROM product WHERE p_category = #{p_category}
+  </select>
+  
+  <select id="getTotal" resultType="String">
+  	SELECT COUNT(*) FROM product
+  </select>
 </mapper>

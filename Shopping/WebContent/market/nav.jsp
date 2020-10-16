@@ -6,18 +6,11 @@
 	        <strong>GLOBAL SHOPPING CENTER</strong>      
 	  </div>
 	  <hr width="600" border="1" noshade color="navy">
-	  
-
 	  <div id="header" class="txt_c">
-	  		<a href="Controller?type=sell">전체</a> |
-	        <a href="Controller?type=electronic">전자 기기</a> | 
-	        <a href="Controller?type=cloth">의류</a> | 
-	        <a href="Controller?type=sports">스포츠</a>
+	  	  <a href="Controller?type=list&category=all">전체</a> | 
+	      <a href="Controller?type=list&category=computer">컴퓨터</a> | 
+	      <a href="Controller?type=list&category=electronic">가전 제품</a> | 
+	      <a href="Controller?type=list&category=sports">스포츠</a> |
+	      <a href="Controller?type=list&category=cloth">의류</a>
 	  </div>
-
-	  <div align="right"><input type="button" value="글쓰기"
-							onclick="javascript:location.href='Controller?type=sell'"/>
-	  </div>
-
-	  </table>
 	  <hr width="600" border="1" noshade color="navy">

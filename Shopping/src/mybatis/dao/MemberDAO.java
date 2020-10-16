@@ -24,6 +24,7 @@ public class MemberDAO {
 		sql.close();
 		return value;
 	}
+	
 	public static MemberVO login(String id, String pw) {
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("id",id);
