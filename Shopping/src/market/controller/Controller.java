@@ -10,12 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import market.action.Action;
+import market.action.AddCartAction;
+import market.action.CartDeleteAction;
 import market.action.HomeAction;
 import market.action.IndexAction;
 import market.action.ListAction;
 import market.action.LoginAction;
+import market.action.LogoutAction;
+import market.action.ManagementAction;
+import market.action.MyCartAction;
 import market.action.RegisterAction;
 import market.action.SellAction;
+import market.action.SellDeleteAction;
 import market.action.ViewAction;
 
 
@@ -46,17 +52,28 @@ public class Controller extends HttpServlet {
 			action = new IndexAction();
 		}else if(type.equals("home")) {
 			action = new HomeAction();
-		}
-		else if(type.equals("register")) {
+		}else if(type.equals("register")) {
 			action = new RegisterAction();
 		}else if(type.equals("login")) {
 			action = new LoginAction();
 		}else if(type.equals("sell")) {
 			action = new SellAction();
 		}else if(type.equals("list")) {
-			action = new ListAction(request.getParameter("category"));
+			action = new ListAction();
 		}else if(type.equals("view")) {
 			action = new ViewAction();
+		}else if(type.equals("addCart")) {
+			action = new  AddCartAction();
+		}else if(type.equals("myCart")) {
+			action = new MyCartAction();
+		}else if(type.equals("cartDelete")) {
+			action = new CartDeleteAction();
+		}else if(type.equals("logout")) {
+			action = new LogoutAction();
+		}else if(type.equals("management")) {
+			action = new ManagementAction();
+		}else if(type.equals("sellDelete")) {
+			action = new SellDeleteAction();
 		}
 		
 		String viewPath = action.execute(request,response);

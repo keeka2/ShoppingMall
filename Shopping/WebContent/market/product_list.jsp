@@ -27,6 +27,27 @@
 </head>
 <body>
 <jsp:include page="nav.jsp"/>
+<table align="center" width="600" border="0" 
+ style="border-collapse:collapse;font-size:8pt" bordercolor="navy"  
+ cellpadding="4" cellspacing="0">
+ 	<thead>
+ 		<tr>
+ 		<th>
+		<form action="Controller?type=list" method="post">
+			<select name="category">
+				<option value="all">전체</option>
+				<option value="computer">컴퓨터</option>
+				<option value="electronic">가전 제품</option>
+				<option value="sports">스포츠</option>
+				<option value="cloth">의류</option>
+			</select>
+			<label for="p_search"></label><input type="text" id="p_search" name="search"/>
+			<input type="button" value="검색" onclick="sendData()"/>
+		</form>
+		</th>
+		</tr>
+	</thead>
+</table>
 
 
 <table align="center" width="600" border="1" 
@@ -39,10 +60,10 @@
 	        <th width="10%">이미지</th>
 	        <th width="35%">제품명</th>
 	        <th width="20%">제품가격</th>
-	        <th width="25%">비고</th>
+	        <th width="25%">조회수</th>
 	    </tr>
 	</thead>
-	<tfoot>
+	<tfoot align="center" style="border-collapse:collapse;font-size:15pt">
 		<tr>
 			<td colspan="5">
 				${page_html }
@@ -80,6 +101,19 @@
 
    
 </table>
+	<script type="text/javascript">
+		function sendData(){
+			for(var i=0 ; i<document.forms[0].elements.length ; i++){
+				//입력 검사
+				if(document.forms[0].elements[i].value == ""){
+					alert(document.forms[0].elements[i].name+"를 입력하세요");
+					document.forms[0].elements[i].focus();
+					return;//수행 중단
+				}
+			}
+			document.forms[0].submit();
+		}
+	</script>
 </body>
 </html>
 

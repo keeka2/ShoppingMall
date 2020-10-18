@@ -14,5 +14,27 @@
 	<select id="login" parameterType="java.util.Map" resultType="mybatis.vo.MemberVO">
 		select * from market_member where id=#{id} and pw=#{pw}
 	</select>
-  
+	
+	<select id="mySell" parameterType="String" resultType="mybatis.vo.ProductVO">
+		select * from product where p_seller=#{user_key}
+	</select>
+	
+	<select id="myCart" parameterType="String" resultType="mybatis.vo.CartVO">
+		select * from (
+			select p_key,COUNT(*) as "count" from cart where user_key=#{user_key} group by p_key) c 
+			join product p on c.p_key=p.p_key 
+	</select>
+	
+	<delete id="delCart" parameterType="java.util.Map">
+		DELETE FROM cart WHERE p_key = #{p_key} AND user_key=#{user_key}
+	</delete>
+	
+  	<delete id="delCartAll" parameterType="java.util.Map">
+		DELETE FROM cart WHERE user_key=#{user_key}
+	</delete>
+	
+	<delete id="delSell" parameterType="String">
+		DELETE FROM product WHERE p_key = #{p_key}
+	</delete>
+	
 </mapper>

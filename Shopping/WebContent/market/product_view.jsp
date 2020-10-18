@@ -70,15 +70,14 @@
 			    <tr>
 			        <td colspan="2"></td>
 			    </tr>
-
+				<c:if test="${status ne 'false' }">
 			    <tr>
 			        <td colspan="2" align="center">
 			            <input type="button" value="장바구니에 담기" 
-			            onclick="javascript:location.href='addProduct.jsp?p_num='"/>
-			            <input type="button" value="장바구니 보기" 
-			            onclick="javascript:location.href='cartList.jsp'"/>
+			            onclick="javascript:location.href='Controller?type=addCart&p_key=${pvo.p_key}'"/>
 			        </td>
 			    </tr> 
+			    </c:if>
 		    </tbody>   
 		</table>
 </body>

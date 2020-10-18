@@ -51,7 +51,7 @@ public class Paging {
 		
 		//현재 블럭의 시작페이지 값과 끝페이지 값을 구함
 		if(nowPage<=3) {
-			startPage=0;
+			startPage=1;
 		}else if(nowPage>=totalPage-2) {
 			startPage=totalPage-4;
 		}else {
@@ -66,11 +66,11 @@ public class Paging {
 		System.out.println("end: "+end);
 		sb = new StringBuffer();
 		for(int i=0;i<5;i++) {
-			if(nowPage+i>totalPage) {
+			if(startPage+i>totalPage) {
 				break;
 			}
-			String cur_page = Integer.toString(nowPage+i);
-			String a = "<a href='Controller?type=list&category="+category+"&page="+cur_page+"'>"+cur_page+"</a>";
+			String cur_page = Integer.toString(startPage+i);
+			String a = "<a href='Controller?type=list&category="+category+"&page="+cur_page+"'>"+cur_page+"  </a>";
 			sb.append(a);
 		}
 		

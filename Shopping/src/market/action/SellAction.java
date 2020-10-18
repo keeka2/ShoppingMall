@@ -39,8 +39,6 @@ public class SellAction implements Action {
 				String p_thumbnail2 = mr.getFilesystemName(p_thumbnail1);
 				String p_image1 = (String)files.nextElement();
 				String p_image2 =  mr.getFilesystemName(p_image1);
-				System.out.println(p_thumbnail1+" "+p_thumbnail2);
-				System.out.println(p_image1+" "+p_image2);
 				
 				//bbs테이블에 저장할 업로드된 파일명을 얻어야 한다.
 				String p_name = mr.getParameter("p_name");
@@ -51,11 +49,6 @@ public class SellAction implements Action {
 				String p_seller = user.getUser_key();
 				String p_thumbnail = path+"/"+p_thumbnail2;
 				String p_image = path+"/"+p_thumbnail2;
-//				File img1 = mr.getFile("p_thumbnail");
-//				String p_thumbnail = img1.getName();
-//				File img2 = mr.getFile("p_image");
-//				String p_image = img1.getName();
-
 				
 				ProductDAO.add(p_name, p_content, p_price, p_seller, p_category, p_quant, p_thumbnail, p_image);
 			} catch (Exception e) {

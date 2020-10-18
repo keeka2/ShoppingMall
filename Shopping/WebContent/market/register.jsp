@@ -124,6 +124,10 @@
 			</table>
 		</form>
 	</div>
+	<script type="text/javascript" language="javascript" src="/sha256min.js"></script>
+
+
+
 	
 	<script type="text/javascript">
 		function sendData(){
@@ -134,6 +138,13 @@
 					document.forms[0].elements[i].focus();
 					return;//수행 중단
 				}
+				
+				if(document.forms[0].elements[i].name == "pw"){
+					
+					alert(sha256("2"));
+				}
+					
+				
 			}
 			document.forms[0].submit();
 		}

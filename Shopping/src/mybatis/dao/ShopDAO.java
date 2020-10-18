@@ -1,6 +1,8 @@
 package mybatis.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -8,32 +10,35 @@ import mybatis.service.FactoryService;
 import mybatis.vo.ProductVO;
 
 public class ShopDAO {
-
-	//카테고리별 목록을 반환하는 기능
-/*	public static List<ProductVO> getList(String category){
-		SqlSession ss = FactoryService.getFactory().openSession();
-		List<ProductVO> list = ss.selectList("shop.list", category);
-		ss.close();
-		return list;
-	}
-*/
-	public static ProductVO[] getList(String category) {
-		SqlSession ss = FactoryService.getFactory().openSession();
-		ProductVO[] ar = null; //반환 값
-		
-		List<ProductVO> list = ss.selectList("shop.list", category);
-		ss.close();
-		//받은 list를 배열로 변경해야 한다.
-		if(list != null && list.size() > 0) {
-			ar = new ProductVO[list.size()]; // list의 크기와 동일하게 배열을 생성한다.
-//			for(int i=0; i<list.size(); i++)
-//				ar[i] = list.get(i);
-			
-			//배열이 list와 같은 크기이므로 list에 있는 모든 요소들을 배열에 한번에 복사해 넣는다.
-			list.toArray(ar);
+	
+	public static void addCart(String user_key,String p_key) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("p_key",p_key);
+		map.put("user_key",user_key);
+		SqlSession sql = FactoryService.getFactory().openSession();
+		int check = sql.insert("shop.addCart",map);
+		if(check>0) {
+			sql.commit();
+		}else {
+			sql.rollback();
 		}
 		
-		return ar;
+	}
+	
+	public static void click(String p_key,String p_quant) {
+		SqlSession sql = FactoryService.getFactory().openSession();
+		int cur = Integer.parseInt(p_quant);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("p_key",p_key);
+		map.put("p_quant",Integer.toString(cur+1));
+		
+		int check = sql.update("shop.updateClick", map);
+		
+		if(check>0) {
+			sql.commit();
+		}else {
+			sql.rollback();
+		}
 	}
 }
 

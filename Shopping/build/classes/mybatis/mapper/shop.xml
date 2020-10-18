@@ -9,29 +9,38 @@
   	SELECT * FROM(
 			SELECT rownum r_num, a.* FROM (
 				SELECT * FROM product 
-				WHERE p_category=#{p_category} 
-				ORDER BY p_key DESC) a
+				WHERE p_category=#{p_category} AND p_name LIKE '%'||#{search}||'%'
+				ORDER BY p_quant DESC) a
 			) WHERE r_num BETWEEN #{begin} AND #{end}
   </select>
   
    <select id="list_all" parameterType="java.util.Map" resultType="mybatis.vo.ProductVO">
   	 SELECT * FROM(
 			SELECT rownum r_num, a.* FROM (
-				SELECT * FROM product 
-				ORDER BY p_key DESC) a
+				SELECT * FROM product WHERE p_name LIKE '%'||#{search}||'%'
+				ORDER BY p_quant DESC) a
 			) WHERE r_num BETWEEN #{begin} AND #{end}
   </select>
   
   <insert id="add" parameterType="java.util.Map">
   	INSERT INTO product
-  	VALUES(product_SEQ.NEXTVAL,#{p_name},UTL_RAW.CAST_TO_RAW(#{p_content}),#{p_price},#{p_seller},#{p_category},#{p_quant},#{p_thumbnail},#{p_image},sysdate)
+  	VALUES(product_SEQ.NEXTVAL,#{p_name},#{p_content},#{p_price},#{p_seller},#{p_category},#{p_quant},#{p_thumbnail},#{p_image},sysdate)
   </insert>
   
   <select id="getcTotal" parameterType="java.util.Map" resultType="String">
-  	SELECT COUNT(*) FROM product WHERE p_category = #{p_category}
+  	SELECT COUNT(*) FROM product WHERE p_category = #{p_category} AND p_name LIKE '%'||#{search}||'%'
   </select>
   
-  <select id="getTotal" resultType="String">
-  	SELECT COUNT(*) FROM product
+  <select id="getTotal" parameterType="java.util.Map" resultType="String">
+  	SELECT COUNT(*) FROM product WHERE p_name LIKE '%'||#{search}||'%'
   </select>
+  
+  <insert id="addCart" parameterType="java.util.Map">
+  	INSERT INTO cart
+  	VALUES(#{user_key},#{p_key})
+  </insert>
+  
+  <update id="updateClick" parameterType="java.util.Map">
+  	UPDATE product SET p_quant=#{p_quant} WHERE p_key=#{p_key}
+  </update>
 </mapper>

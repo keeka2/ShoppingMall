@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,19 +54,22 @@
 
 	<div id="log_suc" class="">
 		
-		<p>(ㅁㅁㅁ)님 환영</p>
+		<p>${name }님 환영</p>
 		<p>
 			<input type="button" value="로그아웃"
-							onclick="javascript:parent.location.href='Controller?type=logout'"/>
+							onclick="javascript:parent.parent.location.href='Controller?type=logout'"/>
 		</p>
 		<p>
 			<input type="button" value="장바구니"
-							onclick="javascript:parent.location.href='Controller?type=cart'"/>
+							onclick="javascript:parent.parent.location.href='Controller?type=myCart'"/>
 		</p>
-
 		<p>
-			<input type="button" value="글쓰기"
-							onclick="javascript:parent.location.href='Controller?type=sell'"/>
+			<input type="button" value="물건 올리기"
+							onclick="javascript:parent.parent.location.href='Controller?type=sell'"/>
+		</p>
+		<p>
+			<input type="button" value="물품 관리"
+							onclick="javascript:parent.parent.location.href='Controller?type=management'"/>
 		</p>
 	</div>
 </body>

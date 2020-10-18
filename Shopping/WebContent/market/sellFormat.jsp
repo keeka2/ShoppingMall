@@ -69,7 +69,7 @@
 	<form action="Controller?type=sell" method="post" 
 	encType="multipart/form-data">
 		<table summary="게시판 글쓰기">
-			<caption>게시판 글쓰기</caption>
+			<caption>물품 정보</caption>
 			<tbody>
 				<tr>
 					<th>제품 이름:</th>
@@ -94,10 +94,7 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<th>수량:</th>
-					<td><input type="number" name="p_quant" size="45"/></td>
-				</tr>
+				<input type="hidden" name="p_quant"  value="0"/>
 				<tr>
 					<th>썸네일:</th>
 					<td><input type="file" name="p_thumbnail"/></td>

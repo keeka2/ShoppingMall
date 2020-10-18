@@ -41,15 +41,13 @@
         <table>
             <thead>
                <tr>
-                   <td colspan="7">:: 장바구니 내용</td>
+                   <td colspan="6">:: 판매 물품</td>
                </tr>
                <tr bgcolor="#dedede">
                    <th>제품번호</th>
                    <th>사진</th>
                    <th width="25%">제품명</th>
-                   <th>단가</th>
-                   <th>수량</th>
-                   <th>금액</th>
+                   <th>가격</th>
                    <th>삭제</th>
                </tr>
 			</thead>
@@ -62,12 +60,10 @@
 	                <td><img src=${vo.p_thumbnail } width="100" height="95"></td>
 	                <td>${vo.p_name}</td>
 	                <td>${vo.p_price}</td>
-	                <td>${vo.count }</td>
-	                <td>${vo.totalPrice }</td>
 	                <td>
 	                    <input type="button" value="삭제" 
 	                    style="border:1 solid black;cursor:pointer" 
-						onclick="javascript:parent.location.href='Controller?type=cartDelete&p_key=${vo.p_key}'">
+						onclick="javascript:parent.location.href='Controller?type=sellDelete&p_key=${vo.p_key}'">
 	                </td>
 	            </tr>
             </c:forEach>
@@ -75,18 +71,11 @@
             <c:if test="${cartList eq null }">
 
 	            <tr align="center">
-	                <td colspan="7">
-	                    <b>장바구니가 비었습니다.</b>
+	                <td colspan="6">
+	                    <b>판매물품이 없습니다.</b>
 	                </td>
 	            </tr>
             </c:if>
-            <tr>
-                <td colspan="6" align="right">총 결재액 :${Total }</td>
-                <td><input type="button" value="결제" 
-	                    style="border:1 solid black;cursor:pointer" 
-						onclick="javascript:parent.location.href='Controller?type=cartDelete&p_key=all'">
-						</td>
-            </tr>
 
             </tbody>
         </table>

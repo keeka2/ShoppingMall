@@ -33,12 +33,13 @@ public class ProductDAO {
 		}
 	}
 	
-	public static ProductVO[] getList(String category,int begin, int end) {
+	public static ProductVO[] getList(String category, String search, int begin, int end) {
 		ProductVO[] ret = null;
 		SqlSession sql = FactoryService.getFactory().openSession();
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("begin",String.valueOf(begin));
 		map.put("end",String.valueOf(end));
+		map.put("search",search);
 		List<ProductVO> list;
 		if(category.equals("all")) {
 			list = sql.selectList("shop.list_all",map);
@@ -54,15 +55,30 @@ public class ProductDAO {
 		return ret;
 	}
 	
-	public static int getTotal(String category) {
+//	public static int getTotal(String category) {
+//		String ret = "0";
+//		SqlSession sql = FactoryService.getFactory().openSession();
+//		Map<String,String> map = new HashMap<String,String>();
+//		map.put("p_category",category);
+//		if(category.equals("all")) {
+//			ret = sql.selectOne("shop.getTotal");
+//		}else {
+//			ret = sql.selectOne("shop.getcTotal", map);
+//		}
+//		System.out.println(ret);
+//		return Integer.parseInt(ret);
+//	}
+	
+	public static int getTotal(String category,String search) {
 		String ret = "0";
 		SqlSession sql = FactoryService.getFactory().openSession();
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("p_category",category);
+		map.put("search",search);
 		if(category.equals("all")) {
-			ret = sql.selectOne("shop.getTotal");
+			ret = sql.selectOne("shop.getTotal",map);
 		}else {
-			ret = sql.selectOne("shop.getCTotal", map);
+			ret = sql.selectOne("shop.getcTotal", map);
 		}
 		System.out.println(ret);
 		return Integer.parseInt(ret);

@@ -14,7 +14,8 @@ public class HomeAction implements Action {
 		if(user==null) {
 			return "/market/left.jsp";
 		}else {
-			return "/market/left2.jsp";
+			request.setAttribute("name", user.getName());
+			return "/market/left2.jsp?name="+user.getName();
 		}
 	}
 
